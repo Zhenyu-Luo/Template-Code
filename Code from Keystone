@@ -25,3 +25,52 @@ set scheme s1mono
 3.数据处理完成
 compress 
 *compress：优化存储，减少文件大小。
+
+
+4.大片批注
+/*******************************************************************************
+Program: data_prepare_pop2011.do
+
+Task:    Prepare district level urban and rural population in 2011 using SHRUG data
+
+Author:  Animesh Jayant
+*******************************************************************************/
+
+
+5.批量重命名
+rename (pc11_pca_tot_p pc11_pca_tot_p_r pc11_pca_tot_p_u) (poptotal poprural popurban)
+
+
+6.简化merge
+merge 1:1 shrid using "$path/DATA/RAW/India Population Census 2011/shrug_names.dta", keep(match) nogen
+*只保留成功match的，不生成_merge
+
+
+7.简化加总数据
+collapse (sum) poptotal poprural popurban, by(state_name district_name)
+*collapse (sum) ...：
+*按 state_name 和 district_name 汇总 poptotal（总人口）、poprural（农村人口）和 popurban（城市人口）。
+*sum 表示对相同 state_name 和 district_name 的行进行求和，确保唯一性。
+
+
+8.字符转数字
+destring buffalo, ignore("NA") replace 
+
+
+9.区别
+egen cattle_buffalo = rowtotal(cattle buffalo)  有NA当作0
+gen cattle_buffalo = cattle + buffalo 有NA保留NA
+
+
+10.临时文件
+tempfile data_1971
+    一系列操作
+save `data_1971', replace 
+restore  恢复一开始的文件
+
+
+11.等效对数处理的方法
+gen growth7191 = (asinh(pop91) - asinh(pop71))/20
+*允许0值
+
+目前完成data部分的29行
