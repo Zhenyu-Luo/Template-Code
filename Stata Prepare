@@ -1,1 +1,8 @@
+cap log close
+*cap (capture) Stata 命令前缀，用于“捕获”可能的错误并继续执行后续代码，而不会因为错误而终止。
+*log close 关闭当前打开的日志文件。
+
+*clear all
+*set more off, permanently
+
 
