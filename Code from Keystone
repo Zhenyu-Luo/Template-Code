@@ -4,5 +4,8 @@ cap log close
 
 *clear all
 *set more off, permanently
+*set matsize 11000
+*set maxvar 32767
+*set scheme s1mono
 
 
