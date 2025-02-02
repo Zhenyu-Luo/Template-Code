@@ -1,11 +1,27 @@
+1.全局综合导言
 cap log close
 *cap (capture) Stata 命令前缀，用于“捕获”可能的错误并继续执行后续代码，而不会因为错误而终止。
 *log close 关闭当前打开的日志文件。
+clear all
+set more off, permanently
+set matsize 11000
+set maxvar 32767
+set scheme s1mono
 
-*clear all
-*set more off, permanently
-*set matsize 11000
-*set maxvar 32767
-*set scheme s1mono
+
+2.代码分行排版方法
+#delimit ; 
+    global vulture_species "gypsindicus 
+                            gypsbengalensis 
+                            gypstenuirostris 
+                            gypshimalayensis 
+                            gypaetusbarbatus 
+                            aegypiusmonachus 
+                            sarcogypscalvus";
+#delimit cr 
+*#delimit ; ... #delimit cr：更改分隔符，使 Stata 允许在一行内书写多行代码。
 
 
+3.数据处理完成
+compress 
+*compress：优化存储，减少文件大小。
